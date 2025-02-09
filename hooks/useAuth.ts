@@ -1,18 +1,18 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { useState, useEffect } from 'react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 type User = {
-  id: string
-  email: string
-  role: "customer" | "employee" | "supervisor"
-}
+  id: string;
+  email: string;
+  role: 'customer' | 'employee' | 'supervisor';
+};
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
-  const supabase = createClientComponentClient()
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const supabase = createClientComponentClient();
 
   useEffect(() => {
     const {
@@ -22,54 +22,74 @@ export function useAuth() {
         setUser({
           id: session.user.id,
           email: session.user.email!,
-          role: session.user.user_metadata.role || "customer",
-        })
+          role: session.user.user_metadata.role || 'customer',
+        });
       } else {
-        setUser(null)
+        setUser(null);
       }
-      setLoading(false)
-    })
+      setLoading(false);
+    });
 
-    return () => subscription.unsubscribe()
-  }, [supabase.auth])
+    return () => subscription.unsubscribe();
+  }, [supabase.auth]);
 
   const signIn = async (email: string, password: string) => {
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
-      })
-      if (error) throw error
+      });
+      if (error) throw error;
     } catch (error) {
-      throw error
+      throw error;
     }
-  }
+  };
 
-  const signUp = async (email: string, password: string, role: User["role"]) => {
+  // SIGN-UP
+  const signUp = async (
+    email: string,
+    password: string,
+    role: User['role']
+  ) => {
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            role,
+      // Sign up the user
+      const { data: authData, error: signUpError } = await supabase.auth.signUp(
+        {
+          email,
+          password,
+          options: {
+            data: {
+              role,
+            },
           },
-        },
-      })
-      if (error) throw error
+        }
+      );
+      if (signUpError) throw signUpError;
+
+      // If signup successful, create profile
+      if (authData.user) {
+        const { error: profileError } = await supabase.from('profiles').insert([
+          {
+            id: authData.user.id,
+            role: role,
+            email: email,
+          },
+        ]);
+        if (profileError) throw profileError;
+      }
     } catch (error) {
-      throw error
+      throw error;
     }
-  }
+  };
 
   const signOut = async () => {
     try {
-      const { error } = await supabase.auth.signOut()
-      if (error) throw error
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
     } catch (error) {
-      throw error
+      throw error;
     }
-  }
+  };
 
   return {
     user,
@@ -77,5 +97,5 @@ export function useAuth() {
     signIn,
     signUp,
     signOut,
-  }
+  };
 }

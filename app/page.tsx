@@ -1,11 +1,23 @@
 'use client';
 
+import { useState } from 'react';
+import { SignInForm } from '@/components/auth/SignInForm';
+import { SignUpForm } from '@/components/auth/SignUpForm';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Card } from '@/components/ui/card';
 import { Building2, Shield, Users } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Home() {
+  const [showLoginDialog, setShowLoginDialog] = useState(false);
+  const [showSignUpDialog, setShowSignUpDialog] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
       <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -15,11 +27,33 @@ export default function Home() {
             <span className="ml-2 font-bold">CleanConnect Pro</span>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
-            <Button variant="ghost">Login</Button>
-            <Button>Sign up</Button>
+            <Button variant="ghost" onClick={() => setShowLoginDialog(true)}>
+              Login
+            </Button>
+            <Button onClick={() => setShowSignUpDialog(true)}>Sign up</Button>
           </div>
         </div>
       </nav>
+
+      {/* Login Dialog */}
+      <Dialog open={showLoginDialog} onOpenChange={setShowLoginDialog}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Login to your account</DialogTitle>
+          </DialogHeader>
+          <SignInForm />
+        </DialogContent>
+      </Dialog>
+
+      {/* Sign Up Dialog */}
+      <Dialog open={showSignUpDialog} onOpenChange={setShowSignUpDialog}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Create an account</DialogTitle>
+          </DialogHeader>
+          <SignUpForm />
+        </DialogContent>
+      </Dialog>
 
       <main className="container py-10">
         <div className="flex flex-col items-center text-center">
