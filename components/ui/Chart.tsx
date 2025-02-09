@@ -35,7 +35,9 @@ export function Chart({
 }: ChartProps) {
   const ChartComponent: typeof ReChart | typeof ReLineChart =
     type === 'bar' ? ReChart : ReLineChart;
-  const DataComponent: typeof Bar | typeof Line = type === 'bar' ? Bar : Line;
+  const DataComponent = (
+    type === 'bar' ? Bar : Line
+  ) as React.ComponentType<any>;
 
   return (
     <Card className={className}>
