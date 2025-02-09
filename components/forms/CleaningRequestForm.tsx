@@ -1,13 +1,13 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Calendar } from "lucide-react"
-import { format } from "date-fns"
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Calendar } from 'lucide-react';
+import { format } from 'date-fns';
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -16,60 +16,60 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Calendar as CalendarComponent } from "@/components/ui/calendar"
+} from '@/components/ui/select';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from '@/components/ui/popover';
 
 const formSchema = z.object({
-  serviceType: z.enum(["regular", "deep", "specialized"]),
-  propertySize: z.string().min(1, "Property size is required"),
+  serviceType: z.enum(['regular', 'deep', 'specialized']),
+  propertySize: z.string().min(1, 'Property size is required'),
   preferredDate: z.date({
-    required_error: "Please select a date",
+    required_error: 'Please select a date',
   }),
-  preferredTime: z.string().min(1, "Please select a preferred time"),
+  preferredTime: z.string().min(1, 'Please select a preferred time'),
   specialInstructions: z.string().optional(),
-  contactName: z.string().min(2, "Contact name is required"),
-  contactPhone: z.string().min(10, "Valid phone number is required"),
-  contactEmail: z.string().email("Invalid email address"),
-  address: z.string().min(5, "Complete address is required"),
-})
+  contactName: z.string().min(2, 'Contact name is required'),
+  contactPhone: z.string().min(10, 'Valid phone number is required'),
+  contactEmail: z.string().email('Invalid email address'),
+  address: z.string().min(5, 'Complete address is required'),
+});
 
-type FormValues = z.infer<typeof formSchema>
+type FormValues = z.infer<typeof formSchema>;
 
 export default function CleaningRequestForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      serviceType: "regular",
-      specialInstructions: "",
+      serviceType: 'regular',
+      specialInstructions: '',
     },
-  })
+  });
 
   async function onSubmit(data: FormValues) {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     try {
       // TODO: Implement API call to submit cleaning request
-      console.log(data)
-      form.reset()
+      console.log(data);
+      form.reset();
     } catch (error) {
-      console.error("Error submitting form:", error)
+      console.error('Error submitting form:', error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
@@ -83,7 +83,10 @@ export default function CleaningRequestForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Service Type</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select service type" />
@@ -92,7 +95,9 @@ export default function CleaningRequestForm() {
                   <SelectContent>
                     <SelectItem value="regular">Regular Cleaning</SelectItem>
                     <SelectItem value="deep">Deep Cleaning</SelectItem>
-                    <SelectItem value="specialized">Specialized Service</SelectItem>
+                    <SelectItem value="specialized">
+                      Specialized Service
+                    </SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -126,11 +131,11 @@ export default function CleaningRequestForm() {
                       <Button
                         variant="outline"
                         className={`w-full pl-3 text-left font-normal ${
-                          !field.value && "text-muted-foreground"
+                          !field.value && 'text-muted-foreground'
                         }`}
                       >
                         {field.value ? (
-                          format(field.value, "PPP")
+                          format(field.value, 'PPP')
                         ) : (
                           <span>Pick a date</span>
                         )}
@@ -144,7 +149,7 @@ export default function CleaningRequestForm() {
                       selected={field.value}
                       onSelect={field.onChange}
                       disabled={(date) =>
-                        date < new Date() || date < new Date("1900-01-01")
+                        date < new Date() || date < new Date('1900-01-01')
                       }
                       initialFocus
                     />
@@ -168,9 +173,15 @@ export default function CleaningRequestForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="morning">Morning (8 AM - 12 PM)</SelectItem>
-                    <SelectItem value="afternoon">Afternoon (12 PM - 4 PM)</SelectItem>
-                    <SelectItem value="evening">Evening (4 PM - 8 PM)</SelectItem>
+                    <SelectItem value="morning">
+                      Morning (8 AM - 12 PM)
+                    </SelectItem>
+                    <SelectItem value="afternoon">
+                      Afternoon (12 PM - 4 PM)
+                    </SelectItem>
+                    <SelectItem value="evening">
+                      Evening (4 PM - 8 PM)
+                    </SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -192,7 +203,8 @@ export default function CleaningRequestForm() {
                 />
               </FormControl>
               <FormDescription>
-                Include any special requirements or areas that need extra attention
+                Include any special requirements or areas that need extra
+                attention
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -265,8 +277,9 @@ export default function CleaningRequestForm() {
         </div>
 
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit Request"}
+          {isSubmitting ? 'Submitting...' : 'Submit Request'}
         </Button>
       </form>
     </Form>
-  )
+  );
+}
