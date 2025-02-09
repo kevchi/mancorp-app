@@ -1,31 +1,31 @@
-"use client"
+'use client';
 
-import { Bell, Menu, Sun, Moon } from "lucide-react"
-import { useTheme } from "next-themes"
-import { Button } from "./button"
+import { Bell, Menu, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { Button } from './button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./dropdown-menu"
-import { Sheet, SheetContent, SheetTrigger } from "./sheet"
-import { Sidebar } from "./Sidebar"
+} from './dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from './sheet';
+import { Sidebar } from './Sidebar';
 
 interface NavbarProps {
   navigation: {
-    name: string
-    href: string
-    icon: React.ElementType
-  }[]
+    name: string;
+    href: string;
+    icon: React.ElementType;
+  }[];
   userNavigation?: {
-    name: string
-    href: string
-  }[]
+    name: string;
+    href: string;
+  }[];
 }
 
 export function Navbar({ navigation, userNavigation }: NavbarProps) {
-  const { setTheme } = useTheme()
+  const { setTheme } = useTheme();
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -57,13 +57,13 @@ export function Navbar({ navigation, userNavigation }: NavbarProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme("light")}>
+              <DropdownMenuItem onClick={() => setTheme('light')}>
                 Light
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
+              <DropdownMenuItem onClick={() => setTheme('dark')}>
                 Dark
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("system")}>
+              <DropdownMenuItem onClick={() => setTheme('system')}>
                 System
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -91,4 +91,5 @@ export function Navbar({ navigation, userNavigation }: NavbarProps) {
         </div>
       </div>
     </nav>
-  )
+  );
+}

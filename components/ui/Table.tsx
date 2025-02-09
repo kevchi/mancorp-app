@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import {
   ColumnDef,
@@ -10,35 +10,35 @@ import {
   SortingState,
   ColumnFiltersState,
   getFilteredRowModel,
-} from "@tanstack/react-table"
+} from '@tanstack/react-table';
 import {
-  Table as TableComponent,
+  Table as TableRoot,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "./table"
-import { Button } from "./button"
-import { Input } from "./input"
-import { useState } from "react"
-import { ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react"
+} from './table-primitives';
+import { Button } from './button';
+import { Input } from './input';
+import { useState } from 'react';
+import { ChevronDown, ChevronUp, ChevronsUpDown } from 'lucide-react';
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  searchKey?: string
-  searchPlaceholder?: string
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  searchKey?: string;
+  searchPlaceholder?: string;
 }
 
 export function Table<TData, TValue>({
   columns,
   data,
   searchKey,
-  searchPlaceholder = "Search...",
+  searchPlaceholder = 'Search...',
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -53,7 +53,7 @@ export function Table<TData, TValue>({
       sorting,
       columnFilters,
     },
-  })
+  });
 
   return (
     <div>
@@ -61,7 +61,9 @@ export function Table<TData, TValue>({
         <div className="flex items-center py-4">
           <Input
             placeholder={searchPlaceholder}
-            value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
+            value={
+              (table.getColumn(searchKey)?.getFilterValue() as string) ?? ''
+            }
             onChange={(event) =>
               table.getColumn(searchKey)?.setFilterValue(event.target.value)
             }
@@ -70,7 +72,7 @@ export function Table<TData, TValue>({
         </div>
       )}
       <div className="rounded-md border">
-        <TableComponent>
+        <TableRoot>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -81,8 +83,8 @@ export function Table<TData, TValue>({
                         <div
                           className={
                             header.column.getCanSort()
-                              ? "flex items-center gap-2 cursor-pointer select-none"
-                              : ""
+                              ? 'flex items-center gap-2 cursor-pointer select-none'
+                              : ''
                           }
                           onClick={header.column.getToggleSortingHandler()}
                         >
@@ -100,7 +102,7 @@ export function Table<TData, TValue>({
                         </div>
                       )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -110,7 +112,7 @@ export function Table<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -133,7 +135,7 @@ export function Table<TData, TValue>({
               </TableRow>
             )}
           </TableBody>
-        </TableComponent>
+        </TableRoot>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
@@ -154,4 +156,5 @@ export function Table<TData, TValue>({
         </Button>
       </div>
     </div>
-  )
+  );
+}
