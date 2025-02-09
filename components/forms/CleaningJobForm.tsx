@@ -1,13 +1,13 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Calendar, Clock } from "lucide-react"
-import { format } from "date-fns"
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Calendar } from 'lucide-react';
+import { format } from 'date-fns';
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -16,77 +16,77 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Calendar as CalendarComponent } from "@/components/ui/calendar"
+} from '@/components/ui/select';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from '@/components/ui/popover';
 
 const formSchema = z.object({
-  jobType: z.enum(["regular", "deep", "specialized"]),
-  clientId: z.string().min(1, "Client is required"),
-  location: z.string().min(1, "Location is required"),
+  jobType: z.enum(['regular', 'deep', 'specialized']),
+  clientId: z.string().min(1, 'Client is required'),
+  location: z.string().min(1, 'Location is required'),
   scheduledDate: z.date({
-    required_error: "Please select a date",
+    required_error: 'Please select a date',
   }),
-  startTime: z.string().min(1, "Start time is required"),
-  endTime: z.string().min(1, "End time is required"),
-  assignedTeam: z.string().min(1, "Team assignment is required"),
-  priority: z.enum(["low", "medium", "high"]),
-  estimatedDuration: z.string().min(1, "Duration is required"),
+  startTime: z.string().min(1, 'Start time is required'),
+  endTime: z.string().min(1, 'End time is required'),
+  assignedTeam: z.string().min(1, 'Team assignment is required'),
+  priority: z.enum(['low', 'medium', 'high']),
+  estimatedDuration: z.string().min(1, 'Duration is required'),
   requirements: z.string().optional(),
-  status: z.enum(["scheduled", "in-progress", "completed", "cancelled"]),
-})
+  status: z.enum(['scheduled', 'in-progress', 'completed', 'cancelled']),
+});
 
-type FormValues = z.infer<typeof formSchema>
+type FormValues = z.infer<typeof formSchema>;
 
 // Mock data - replace with actual data from your backend
 const mockTeams = [
-  { id: "team-a", name: "Team A" },
-  { id: "team-b", name: "Team B" },
-  { id: "team-c", name: "Team C" },
-]
+  { id: 'team-a', name: 'Team A' },
+  { id: 'team-b', name: 'Team B' },
+  { id: 'team-c', name: 'Team C' },
+];
 
 const mockClients = [
-  { id: "client-1", name: "Tech Corp" },
-  { id: "client-2", name: "StartUp Inc" },
-  { id: "client-3", name: "Innovation Labs" },
-]
+  { id: 'client-1', name: 'Tech Corp' },
+  { id: 'client-2', name: 'StartUp Inc' },
+  { id: 'client-3', name: 'Innovation Labs' },
+];
 
 export default function CleaningJobForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      jobType: "regular",
-      priority: "medium",
-      status: "scheduled",
-      requirements: "",
+      jobType: 'regular',
+      priority: 'medium',
+      status: 'scheduled',
+      requirements: '',
     },
-  })
+  });
 
   async function onSubmit(data: FormValues) {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     try {
       // TODO: Implement API call to submit cleaning job
-      console.log(data)
-      form.reset()
+      console.log(data);
+      form.reset();
     } catch (error) {
-      console.error("Error submitting form:", error)
+      console.error('Error submitting form:', error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
@@ -100,7 +100,10 @@ export default function CleaningJobForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Job Type</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select job type" />
@@ -109,7 +112,9 @@ export default function CleaningJobForm() {
                   <SelectContent>
                     <SelectItem value="regular">Regular Cleaning</SelectItem>
                     <SelectItem value="deep">Deep Cleaning</SelectItem>
-                    <SelectItem value="specialized">Specialized Service</SelectItem>
+                    <SelectItem value="specialized">
+                      Specialized Service
+                    </SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -168,11 +173,11 @@ export default function CleaningJobForm() {
                       <Button
                         variant="outline"
                         className={`w-full pl-3 text-left font-normal ${
-                          !field.value && "text-muted-foreground"
+                          !field.value && 'text-muted-foreground'
                         }`}
                       >
                         {field.value ? (
-                          format(field.value, "PPP")
+                          format(field.value, 'PPP')
                         ) : (
                           <span>Pick a date</span>
                         )}
@@ -186,7 +191,7 @@ export default function CleaningJobForm() {
                       selected={field.value}
                       onSelect={field.onChange}
                       disabled={(date) =>
-                        date < new Date() || date < new Date("1900-01-01")
+                        date < new Date() || date < new Date('1900-01-01')
                       }
                       initialFocus
                     />
@@ -211,12 +216,12 @@ export default function CleaningJobForm() {
                   </FormControl>
                   <SelectContent>
                     {Array.from({ length: 24 }, (_, i) => {
-                      const hour = i.toString().padStart(2, "0")
+                      const hour = i.toString().padStart(2, '0');
                       return (
                         <SelectItem key={hour} value={`${hour}:00`}>
                           {`${hour}:00`}
                         </SelectItem>
-                      )
+                      );
                     })}
                   </SelectContent>
                 </Select>
@@ -239,12 +244,12 @@ export default function CleaningJobForm() {
                   </FormControl>
                   <SelectContent>
                     {Array.from({ length: 24 }, (_, i) => {
-                      const hour = i.toString().padStart(2, "0")
+                      const hour = i.toString().padStart(2, '0');
                       return (
                         <SelectItem key={hour} value={`${hour}:00`}>
                           {`${hour}:00`}
                         </SelectItem>
-                      )
+                      );
                     })}
                   </SelectContent>
                 </Select>
@@ -284,7 +289,10 @@ export default function CleaningJobForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Priority</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select priority" />
@@ -321,7 +329,10 @@ export default function CleaningJobForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Status</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select status" />
@@ -353,7 +364,8 @@ export default function CleaningJobForm() {
                 />
               </FormControl>
               <FormDescription>
-                Include any special requirements, equipment needed, or areas that need attention
+                Include any special requirements, equipment needed, or areas
+                that need attention
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -361,8 +373,9 @@ export default function CleaningJobForm() {
         />
 
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Create Job"}
+          {isSubmitting ? 'Submitting...' : 'Create Job'}
         </Button>
       </form>
     </Form>
-  )
+  );
+}

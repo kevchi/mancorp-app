@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Building2, Shield, Users } from "lucide-react"
-import Image from "next/image"
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Building2, Shield, Users } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -29,8 +29,9 @@ export default function Home() {
             Made Simple
           </h1>
           <p className="mt-4 max-w-[700px] text-muted-foreground">
-            Streamline your cleaning operations with our comprehensive management platform.
-            Perfect for cleaning companies, employees, and customers.
+            Streamline your cleaning operations with our comprehensive
+            management platform. Perfect for cleaning companies, employees, and
+            customers.
           </p>
           <div className="mt-8">
             <Button size="lg">Get Started</Button>
@@ -65,26 +66,37 @@ export default function Home() {
           <div className="rounded-lg border bg-card p-8">
             <div className="grid gap-8 lg:grid-cols-2">
               <div>
-                <h2 className="text-3xl font-bold">Why Choose CleanConnect Pro?</h2>
+                <h2 className="text-3xl font-bold">
+                  Why Choose CleanConnect Pro?
+                </h2>
                 <p className="mt-4 text-muted-foreground">
-                  Our platform is designed to make cleaning service management effortless.
-                  From scheduling to team coordination, we've got you covered.
+                  Our platform is designed to make cleaning service management
+                  effortless. From scheduling to team coordination, we've got
+                  you covered.
                 </p>
                 <ul className="mt-6 space-y-4">
                   <li className="flex items-center">
-                    <span className="mr-2 rounded-full bg-primary/10 p-1">✓</span>
+                    <span className="mr-2 rounded-full bg-primary/10 p-1">
+                      ✓
+                    </span>
                     Easy scheduling and management
                   </li>
                   <li className="flex items-center">
-                    <span className="mr-2 rounded-full bg-primary/10 p-1">✓</span>
+                    <span className="mr-2 rounded-full bg-primary/10 p-1">
+                      ✓
+                    </span>
                     Real-time tracking and updates
                   </li>
                   <li className="flex items-center">
-                    <span className="mr-2 rounded-full bg-primary/10 p-1">✓</span>
+                    <span className="mr-2 rounded-full bg-primary/10 p-1">
+                      ✓
+                    </span>
                     Inventory management
                   </li>
                   <li className="flex items-center">
-                    <span className="mr-2 rounded-full bg-primary/10 p-1">✓</span>
+                    <span className="mr-2 rounded-full bg-primary/10 p-1">
+                      ✓
+                    </span>
                     Customer satisfaction tracking
                   </li>
                 </ul>
@@ -109,17 +121,26 @@ export default function Home() {
               <h4 className="text-sm font-semibold">Company</h4>
               <ul className="mt-4 space-y-2">
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                  <a
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
                     About
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                  <a
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
                     Careers
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                  <a
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
                     Contact
                   </a>
                 </li>
@@ -129,17 +150,26 @@ export default function Home() {
               <h4 className="text-sm font-semibold">Resources</h4>
               <ul className="mt-4 space-y-2">
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                  <a
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                  <a
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
                     Documentation
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                  <a
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
                     Help Center
                   </a>
                 </li>
@@ -149,12 +179,18 @@ export default function Home() {
               <h4 className="text-sm font-semibold">Legal</h4>
               <ul className="mt-4 space-y-2">
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                  <a
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
                     Privacy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                  <a
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                  >
                     Terms
                   </a>
                 </li>
@@ -178,5 +214,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
