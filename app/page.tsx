@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -40,6 +41,9 @@ export default function Home() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Login to your account</DialogTitle>
+            <DialogDescription>
+              Enter your credentials to access your account
+            </DialogDescription>
           </DialogHeader>
           <SignInForm />
         </DialogContent>
@@ -50,6 +54,9 @@ export default function Home() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Create an account</DialogTitle>
+            <DialogDescription>
+              Fill in your details to create a new account
+            </DialogDescription>
           </DialogHeader>
           <SignUpForm />
         </DialogContent>

@@ -33,6 +33,7 @@ export function useAuth() {
     return () => subscription.unsubscribe();
   }, [supabase.auth]);
 
+  // SIGN-IN
   const signIn = async (email: string, password: string) => {
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -52,7 +53,8 @@ export function useAuth() {
     role: User['role']
   ) => {
     try {
-      // Sign up the user
+      console.log('Starting signup process...'); // Debug log
+
       const { data: authData, error: signUpError } = await supabase.auth.signUp(
         {
           email,
@@ -64,10 +66,14 @@ export function useAuth() {
           },
         }
       );
+
+      console.log('Signup response:', { authData, error: signUpError }); // Debug log
+
       if (signUpError) throw signUpError;
 
       // If signup successful, create profile
       if (authData.user) {
+        console.log('Creating profile...'); // Debug log
         const { error: profileError } = await supabase.from('profiles').insert([
           {
             id: authData.user.id,
@@ -75,13 +81,18 @@ export function useAuth() {
             email: email,
           },
         ]);
+
+        console.log('Profile creation response:', { error: profileError }); // Debug log
+
         if (profileError) throw profileError;
       }
     } catch (error) {
+      console.error('Signup error:', error); // Debug log
       throw error;
     }
   };
 
+  // SIGN-OUT
   const signOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
