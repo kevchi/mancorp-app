@@ -78,7 +78,10 @@ export function useAuth() {
           {
             id: authData.user.id,
             role: role,
-            email: email,
+            full_name: '', // Can be updated later
+            phone: '', // Can be updated later
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
           },
         ]);
 
