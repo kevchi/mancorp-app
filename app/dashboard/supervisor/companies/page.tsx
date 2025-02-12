@@ -1,17 +1,17 @@
-"use client"
+'use client';
 
-import SupervisorLayout from "@/components/layouts/SupervisorLayout"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Building2, MapPin, Phone, Search, Users } from "lucide-react"
+import SupervisorLayout from '@/components/layouts/SupervisorLayout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Building2, MapPin, Phone, Search, Users } from 'lucide-react';
 
 export default function Companies() {
   return (
     <SupervisorLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between md:ml-0 ml-14">
           <h1 className="text-2xl font-bold tracking-tight">Companies</h1>
           <Button>
             <Building2 className="mr-2 h-4 w-4" />
@@ -93,5 +93,5 @@ export default function Companies() {
         </div>
       </div>
     </SupervisorLayout>
-  )
+  );
 }

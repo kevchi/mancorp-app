@@ -1,24 +1,24 @@
-"use client"
+'use client';
 
-import SupervisorLayout from "@/components/layouts/SupervisorLayout"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
+import AdminLayout from '@/components/layouts/AdminLayout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Filter, Search, UserPlus } from "lucide-react"
+} from '@/components/ui/select';
+import { Filter, Search, UserPlus } from 'lucide-react';
 
 export default function Employees() {
   return (
-    <SupervisorLayout>
+    <AdminLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between md:ml-0 ml-14">
           <h1 className="text-2xl font-bold tracking-tight">Employees</h1>
           <div className="flex items-center space-x-2">
             <Button variant="outline">
@@ -126,6 +126,6 @@ export default function Employees() {
           </Card>
         </div>
       </div>
-    </SupervisorLayout>
-  )
+    </AdminLayout>
+  );
 }

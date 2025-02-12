@@ -35,7 +35,7 @@ export default function SupervisorDashboard() {
   return (
     <SupervisorLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between md:ml-0 ml-14">
           <h1 className="text-2xl font-bold tracking-tight">
             Supervisor Dashboard
           </h1>
@@ -47,23 +47,9 @@ export default function SupervisorDashboard() {
             <div className="flex items-start space-x-4">
               <Calendar className="h-6 w-6 text-primary" />
               <div>
-                <p className="font-semibold">Active Jobs</p>
-                <p className="text-2xl font-bold">24</p>
-                <p className="text-xs text-muted-foreground">
-                  +8% from last week
-                </p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-6">
-            <div className="flex items-start space-x-4">
-              <Users className="h-6 w-6 text-primary" />
-              <div>
-                <p className="font-semibold">Staff on Duty</p>
-                <p className="text-2xl font-bold">18</p>
-                <p className="text-xs text-muted-foreground">
-                  92% attendance rate
-                </p>
+                <p className="font-semibold">Active Request</p>
+                <p className="text-2xl font-bold">19</p>
+                <p className="text-xs text-muted-foreground">Last 30 days</p>
               </div>
             </div>
           </Card>
@@ -71,21 +57,29 @@ export default function SupervisorDashboard() {
             <div className="flex items-start space-x-4">
               <CheckCircle2 className="h-6 w-6 text-primary" />
               <div>
-                <p className="font-semibold">Completed Today</p>
-                <p className="text-2xl font-bold">16</p>
-                <p className="text-xs text-muted-foreground">
-                  98% satisfaction rate
-                </p>
+                <p className="font-semibold">Completed Request</p>
+                <p className="text-2xl font-bold">13</p>
+                <p className="text-xs text-muted-foreground">Last 30 days</p>
               </div>
             </div>
           </Card>
           <Card className="p-6">
             <div className="flex items-start space-x-4">
-              <DollarSign className="h-6 w-6 text-primary" />
+              <Calendar className="h-6 w-6 text-primary" />
               <div>
-                <p className="font-semibold">Revenue</p>
-                <p className="text-2xl font-bold">$4,280</p>
-                <p className="text-xs text-muted-foreground">Daily earnings</p>
+                <p className="font-semibold">Active Jobs</p>
+                <p className="text-2xl font-bold">24</p>
+                <p className="text-xs text-muted-foreground">Last 30 days</p>
+              </div>
+            </div>
+          </Card>
+          <Card className="p-6">
+            <div className="flex items-start space-x-4">
+              <CheckCircle2 className="h-6 w-6 text-primary" />
+              <div>
+                <p className="font-semibold">Completed Jobs</p>
+                <p className="text-2xl font-bold">16</p>
+                <p className="text-xs text-muted-foreground">Last 30 days</p>
               </div>
             </div>
           </Card>

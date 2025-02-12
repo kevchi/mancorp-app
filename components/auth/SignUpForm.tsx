@@ -16,13 +16,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const formSchema = z
@@ -30,7 +23,6 @@ const formSchema = z
     email: z.string().email('Invalid email address'),
     password: z.string().min(6, 'Password must be at least 6 characters'),
     confirmPassword: z.string(),
-    role: z.enum(['customer', 'employee', 'supervisor']),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -48,15 +40,15 @@ export function SignUpForm() {
       email: '',
       password: '',
       confirmPassword: '',
-      role: 'customer',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setError('');
-      await signUp(values.email, values.password, values.role);
-      router.push('/dashboard/customer'); // Will be redirected based on role
+      // Always pass 'admin' as the role
+      await signUp(values.email, values.password, 'admin');
+      router.push('/dashboard/admin');
     } catch (error) {
       setError('Failed to create account');
     }
@@ -70,7 +62,7 @@ export function SignUpForm() {
         aria-describedby="signup-form-description"
       >
         <div id="signup-form-description" className="sr-only">
-          Sign up form for creating a new account
+          Sign up form for creating a new admin account
         </div>
         {error && (
           <Alert variant="destructive">
@@ -120,31 +112,8 @@ export function SignUpForm() {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="role"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Role</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your role" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="customer">Customer</SelectItem>
-                  <SelectItem value="employee">Employee</SelectItem>
-                  <SelectItem value="supervisor">Supervisor</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <Button type="submit" className="w-full">
-          Sign Up
+          Create Admin Account
         </Button>
       </form>
     </Form>

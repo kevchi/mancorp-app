@@ -1,24 +1,24 @@
-"use client"
+'use client';
 
-import SupervisorLayout from "@/components/layouts/SupervisorLayout"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
+import SupervisorLayout from '@/components/layouts/SupervisorLayout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Clock, Filter, MapPin, Search, Users } from "lucide-react"
+} from '@/components/ui/select';
+import { Clock, Filter, MapPin, Search, Users } from 'lucide-react';
 
 export default function CleaningJobs() {
   return (
     <SupervisorLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between md:ml-0 ml-14">
           <h1 className="text-2xl font-bold tracking-tight">Cleaning Jobs</h1>
           <div className="flex items-center space-x-2">
             <Button variant="outline">
@@ -59,7 +59,9 @@ export default function CleaningJobs() {
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center space-x-2">
-                    <h3 className="font-semibold">Office Deep Clean - Tech Corp</h3>
+                    <h3 className="font-semibold">
+                      Office Deep Clean - Tech Corp
+                    </h3>
                     <Badge>In Progress</Badge>
                   </div>
                   <div className="mt-2 flex items-center space-x-4 text-sm text-muted-foreground">
@@ -91,7 +93,9 @@ export default function CleaningJobs() {
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center space-x-2">
-                    <h3 className="font-semibold">Regular Maintenance - StartUp Inc</h3>
+                    <h3 className="font-semibold">
+                      Regular Maintenance - StartUp Inc
+                    </h3>
                     <Badge variant="secondary">Scheduled</Badge>
                   </div>
                   <div className="mt-2 flex items-center space-x-4 text-sm text-muted-foreground">
@@ -120,5 +124,5 @@ export default function CleaningJobs() {
         </div>
       </div>
     </SupervisorLayout>
-  )
+  );
 }

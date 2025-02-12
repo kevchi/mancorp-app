@@ -1,25 +1,27 @@
-"use client"
+'use client';
 
-import SupervisorLayout from "@/components/layouts/SupervisorLayout"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import SupervisorLayout from '@/components/layouts/SupervisorLayout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Calendar, Filter, Search } from "lucide-react"
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Calendar, Filter, Search } from 'lucide-react';
 
 export default function CleaningRequests() {
   return (
     <SupervisorLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold tracking-tight">Cleaning Requests</h1>
+        <div className="flex items-center justify-between md:ml-0 ml-14">
+          <h1 className="text-2xl font-bold tracking-tight">
+            Cleaning Requests
+          </h1>
           <div className="flex items-center space-x-2">
             <Button variant="outline">
               <Filter className="mr-2 h-4 w-4" />
@@ -68,9 +70,7 @@ export default function CleaningRequests() {
                   <p className="mt-1 text-sm text-muted-foreground">
                     Office Deep Clean - 5000 sq ft
                   </p>
-                  <p className="mt-2 text-sm">
-                    Requested for: April 15, 2024
-                  </p>
+                  <p className="mt-2 text-sm">Requested for: April 15, 2024</p>
                 </div>
                 <Badge variant="outline">Pending Review</Badge>
               </div>
@@ -93,9 +93,7 @@ export default function CleaningRequests() {
                   <p className="mt-1 text-sm text-muted-foreground">
                     Weekly Maintenance - 2000 sq ft
                   </p>
-                  <p className="mt-2 text-sm">
-                    Requested for: April 20, 2024
-                  </p>
+                  <p className="mt-2 text-sm">Requested for: April 20, 2024</p>
                 </div>
                 <Badge variant="secondary">Scheduled</Badge>
               </div>
@@ -109,5 +107,5 @@ export default function CleaningRequests() {
         </div>
       </div>
     </SupervisorLayout>
-  )
+  );
 }

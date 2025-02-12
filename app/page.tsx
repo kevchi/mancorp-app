@@ -247,7 +247,7 @@ export default function Home() {
           </div>
           <div className="mt-8 border-t pt-8 text-center">
             <p className="text-sm text-muted-foreground">
-              © 2024 CleanConnect Pro. All rights reserved.
+              © 2025 Mancorp Ltd. All rights reserved.
             </p>
           </div>
         </div>

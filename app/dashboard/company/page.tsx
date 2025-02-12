@@ -9,7 +9,7 @@ export default function CustomerDashboard() {
   return (
     <CustomerLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between md:ml-0 ml-14">
           <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
           <Button>
             <Calendar className="mr-2 h-4 w-4" />

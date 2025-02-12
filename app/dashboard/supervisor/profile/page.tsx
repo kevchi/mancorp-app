@@ -1,41 +1,48 @@
-"use client"
+'use client';
 
-import SupervisorLayout from "@/components/layouts/SupervisorLayout"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import SupervisorLayout from '@/components/layouts/SupervisorLayout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue, } from "@/components/ui/select"
+  SelectValue,
+} from '@/components/ui/select';
 
 export default function Profile() {
   return (
     <SupervisorLayout>
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold tracking-tight">Profile Settings</h1>
+        <h1 className="text-2xl font-bold tracking-tight md:ml-0 ml-14">
+          Profile Settings
+        </h1>
 
         <Card className="p-6">
           <form className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="firstName">First Name</Label>
-                <Input id="firstName" defaultValue="Robert" />
+                <Input id="firstName" defaultValue="First" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="lastName">Last Name</Label>
-                <Input id="lastName" defaultValue="Chen" />
+                <Input id="lastName" defaultValue="Last" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" defaultValue="robert.chen@cleanconnect.com" />
+                <Input
+                  id="email"
+                  type="email"
+                  defaultValue="youremail@mail.com"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone</Label>
-                <Input id="phone" type="tel" defaultValue="+1 (555) 234-5678" />
+                <Input id="phone" type="tel" defaultValue="+1 (876) 234-5678" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="employeeId">Employee ID</Label>
@@ -56,7 +63,10 @@ export default function Profile() {
               </div>
               <div className="space-y-2 sm:col-span-2">
                 <Label htmlFor="address">Office Address</Label>
-                <Input id="address" defaultValue="567 Management Blvd, Suite 200" />
+                <Input
+                  id="address"
+                  defaultValue="567 Management Blvd, Suite 200"
+                />
               </div>
             </div>
             <div className="flex justify-end">
@@ -111,5 +121,5 @@ export default function Profile() {
         </Card>
       </div>
     </SupervisorLayout>
-  )
+  );
 }

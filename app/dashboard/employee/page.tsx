@@ -1,17 +1,19 @@
-"use client"
+'use client';
 
-import EmployeeLayout from "@/components/layouts/EmployeeLayout"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, CheckCircle2, Clock, MapPin, Timer } from "lucide-react"
+import EmployeeLayout from '@/components/layouts/EmployeeLayout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, CheckCircle2, Clock, MapPin, Timer } from 'lucide-react';
 
 export default function EmployeeDashboard() {
   return (
     <EmployeeLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
+        <div className="flex items-center justify-between md:ml-0 ml-14">
+          <h1 className="text-2xl font-bold tracking-tight">
+            Employee Dashboard
+          </h1>
           <Badge className="px-4 py-2">On Duty</Badge>
         </div>
 
@@ -30,7 +32,9 @@ export default function EmployeeDashboard() {
               <Clock className="h-6 w-6 text-primary" />
               <div>
                 <p className="font-semibold">Current Shift</p>
-                <p className="text-sm text-muted-foreground">Morning (6 AM - 2 PM)</p>
+                <p className="text-sm text-muted-foreground">
+                  Morning (6 AM - 2 PM)
+                </p>
               </div>
             </div>
           </Card>
@@ -77,5 +81,5 @@ export default function EmployeeDashboard() {
         </Card>
       </div>
     </EmployeeLayout>
-  )
+  );
 }
