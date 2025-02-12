@@ -2,28 +2,38 @@
 
 import { useState, useEffect } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/types/supabase';
 
-type User = {
-  id: string;
-  email: string;
-  role: 'customer' | 'employee' | 'supervisor';
-};
+type UserRole = Database['public']['Enums']['user_role'];
+type Profile = Database['public']['Tables']['profiles']['Row'];
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
-  const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient<Database>();
 
   useEffect(() => {
+    const getProfile = async (userId: string) => {
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (error) {
+        console.error('Error fetching profile:', error);
+        return null;
+      }
+
+      return profile;
+    };
+
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        setUser({
-          id: session.user.id,
-          email: session.user.email!,
-          role: session.user.user_metadata.role || 'customer',
-        });
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        const profile = await getProfile(session.user.id);
+        setUser(profile);
       } else {
         setUser(null);
       }
@@ -31,7 +41,7 @@ export function useAuth() {
     });
 
     return () => subscription.unsubscribe();
-  }, [supabase.auth]);
+  }, [supabase]);
 
   // SIGN-IN
   const signIn = async (email: string, password: string) => {
@@ -47,13 +57,9 @@ export function useAuth() {
   };
 
   // SIGN-UP
-  const signUp = async (
-    email: string,
-    password: string,
-    role: User['role']
-  ) => {
+  const signUp = async (email: string, password: string, role: UserRole) => {
     try {
-      console.log('Starting signup process...'); // Debug log
+      console.log('Starting signup process...');
 
       const { data: authData, error: signUpError } = await supabase.auth.signUp(
         {
@@ -61,7 +67,7 @@ export function useAuth() {
           password,
           options: {
             data: {
-              role,
+              role, // Still store in metadata for quick access
             },
           },
         }
@@ -77,7 +83,9 @@ export function useAuth() {
         const { error: profileError } = await supabase.from('profiles').insert([
           {
             id: authData.user.id,
-            role: role,
+            role,
+            email,
+            is_active: true,
             full_name: '', // Can be updated later
             phone: '', // Can be updated later
             created_at: new Date().toISOString(),
@@ -105,11 +113,21 @@ export function useAuth() {
     }
   };
 
+  // Role check helpers
+  const isAdmin = user?.role === 'admin';
+  const isCompany = user?.role === 'company';
+  const isSupervisor = user?.role === 'supervisor';
+  const isEmployee = user?.role === 'employee';
+
   return {
     user,
     loading,
     signIn,
     signUp,
     signOut,
+    isAdmin,
+    isCompany,
+    isSupervisor,
+    isEmployee,
   };
 }

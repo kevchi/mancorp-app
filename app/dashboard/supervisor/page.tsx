@@ -39,7 +39,7 @@ export default function SupervisorDashboard() {
           <h1 className="text-2xl font-bold tracking-tight">
             Supervisor Dashboard
           </h1>
-          <Badge className="px-4 py-2">Week 16, 2024</Badge>
+          <Badge className="px-4 py-2">Week 7, 2025</Badge>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

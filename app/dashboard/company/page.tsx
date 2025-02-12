@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import CustomerLayout from "@/components/layouts/CustomerLayout"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Calendar, CheckCircle2, Clock } from "lucide-react"
+import CustomerLayout from '@/components/layouts/CompanyLayout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Calendar, CheckCircle2, Clock } from 'lucide-react';
 
 export default function CustomerDashboard() {
   return (
@@ -55,18 +55,22 @@ export default function CustomerDashboard() {
                 <p className="font-medium">Office Deep Clean</p>
                 <p className="text-sm text-muted-foreground">March 30, 2024</p>
               </div>
-              <Button variant="outline" size="sm">View Details</Button>
+              <Button variant="outline" size="sm">
+                View Details
+              </Button>
             </div>
             <div className="flex items-center justify-between border-b pb-4">
               <div>
                 <p className="font-medium">Regular Maintenance</p>
                 <p className="text-sm text-muted-foreground">March 15, 2024</p>
               </div>
-              <Button variant="outline" size="sm">View Details</Button>
+              <Button variant="outline" size="sm">
+                View Details
+              </Button>
             </div>
           </div>
         </Card>
       </div>
     </CustomerLayout>
-  )
+  );
 }

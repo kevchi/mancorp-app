@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import CustomerLayout from "@/components/layouts/CustomerLayout"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import CustomerLayout from '@/components/layouts/CompanyLayout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function Profile() {
   return (
@@ -25,7 +25,11 @@ export default function Profile() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" defaultValue="john.doe@example.com" />
+                <Input
+                  id="email"
+                  type="email"
+                  defaultValue="john.doe@example.com"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone</Label>
@@ -33,7 +37,10 @@ export default function Profile() {
               </div>
               <div className="space-y-2 sm:col-span-2">
                 <Label htmlFor="address">Address</Label>
-                <Input id="address" defaultValue="123 Business Street, Suite 100" />
+                <Input
+                  id="address"
+                  defaultValue="123 Business Street, Suite 100"
+                />
               </div>
             </div>
             <div className="flex justify-end">
@@ -43,5 +50,5 @@ export default function Profile() {
         </Card>
       </div>
     </CustomerLayout>
-  )
+  );
 }

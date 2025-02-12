@@ -4,9 +4,11 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { Database } from '@/types/supabase';
 
+type UserRole = Database['public']['Enums']['user_role'];
+
 export async function validateRequest(
   req: NextRequest,
-  allowedRoles: string[] = []
+  allowedRoles: UserRole[] = []
 ) {
   try {
     if (
@@ -20,6 +22,7 @@ export async function validateRequest(
     const supabase = createServerComponentClient<Database>({
       cookies: () => cookieStore,
     });
+
     const {
       data: { session },
       error: sessionError,
@@ -37,14 +40,22 @@ export async function validateRequest(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (allowedRoles.length > 0) {
-      const userRole = session.user.user_metadata.role;
-      if (!allowedRoles.includes(userRole)) {
-        return NextResponse.json(
-          { error: 'Insufficient permissions' },
-          { status: 403 }
-        );
-      }
+    // Get user profile with role
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', session.user.id)
+      .single();
+
+    if (profileError || !profile) {
+      return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
+    }
+
+    if (allowedRoles.length > 0 && !allowedRoles.includes(profile.role)) {
+      return NextResponse.json(
+        { error: 'Insufficient permissions' },
+        { status: 403 }
+      );
     }
 
     return null;
@@ -65,24 +76,31 @@ export async function getCurrentUser() {
     throw new Error('Supabase credentials are not configured');
   }
 
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  });
+
   const {
     data: { session },
-    error,
+    error: sessionError,
   } = await supabase.auth.getSession();
 
-  if (error) {
-    console.error('Error getting user:', error);
+  if (sessionError || !session) {
     return null;
   }
 
-  if (!session) {
+  // Get full profile
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', session.user.id)
+    .single();
+
+  if (profileError || !profile) {
+    console.error('Error getting profile:', profileError);
     return null;
   }
 
-  return {
-    id: session.user.id,
-    email: session.user.email,
-    role: session.user.user_metadata.role,
-  };
+  return profile;
 }

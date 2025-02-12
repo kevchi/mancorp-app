@@ -25,7 +25,7 @@ export default function Home() {
         <div className="container flex h-14 items-center">
           <div className="mr-4 flex">
             <Building2 className="h-6 w-6" />
-            <span className="ml-2 font-bold">CleanConnect Pro</span>
+            <span className="ml-2 font-bold">Mancorp Ltd</span>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
             <Button variant="ghost" onClick={() => setShowLoginDialog(true)}>
@@ -107,9 +107,7 @@ export default function Home() {
           <div className="rounded-lg border bg-card p-8">
             <div className="grid gap-8 lg:grid-cols-2">
               <div>
-                <h2 className="text-3xl font-bold">
-                  Why Choose CleanConnect Pro?
-                </h2>
+                <h2 className="text-3xl font-bold">Why Choose Mancorp?</h2>
                 <p className="mt-4 text-muted-foreground">
                   Our platform is designed to make cleaning service management
                   effortless. From scheduling to team coordination, we've got

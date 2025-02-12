@@ -1,28 +1,47 @@
-'use client'
+'use client';
 
-import { useAuth } from '@/hooks/useAuth'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { Database } from '@/types/supabase';
+
+type UserRole = Database['public']['Enums']['user_role'];
 
 export function ProtectedRoute({
   children,
   allowedRoles = [],
 }: {
-  children: React.ReactNode
-  allowedRoles?: string[]
+  children: React.ReactNode;
+  allowedRoles?: UserRole[];
 }) {
-  const { user, loading } = useAuth()
-  const router = useRouter()
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     if (!loading) {
       if (!user) {
-        router.replace('/')
+        router.replace('/');
       } else if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
-        router.replace('/')
+        // Redirect to appropriate dashboard based on role
+        switch (user.role) {
+          case 'admin':
+            router.replace('/dashboard/admin');
+            break;
+          case 'company':
+            router.replace('/dashboard/customer');
+            break;
+          case 'supervisor':
+            router.replace('/dashboard/supervisor');
+            break;
+          case 'employee':
+            router.replace('/dashboard/employee');
+            break;
+          default:
+            router.replace('/');
+        }
       }
     }
-  }, [user, loading, router, allowedRoles])
+  }, [user, loading, router, allowedRoles]);
 
   if (loading) {
     return (
@@ -32,12 +51,12 @@ export function ProtectedRoute({
           <p className="mt-2 text-sm text-muted-foreground">Loading...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (!user || (allowedRoles.length > 0 && !allowedRoles.includes(user.role))) {
-    return null
+    return null;
   }
 
-  return <>{children}</>
+  return <>{children}</>;
 }

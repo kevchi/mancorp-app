@@ -4,133 +4,251 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[]
+  | Json[];
 
 export interface Database {
   public: {
     Tables: {
+      companies: {
+        Row: {
+          id: string;
+          name: string;
+          address: string | null;
+          contact_email: string | null;
+          contact_phone: string | null;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          address?: string | null;
+          contact_email?: string | null;
+          contact_phone?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          address?: string | null;
+          contact_email?: string | null;
+          contact_phone?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      profiles: {
+        Row: {
+          id: string;
+          role: 'admin' | 'company' | 'supervisor' | 'employee';
+          is_active: boolean;
+          full_name: string | null;
+          email: string;
+          phone: string | null;
+          company_id: string | null;
+          supervisor_id: string | null;
+          last_login: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id: string;
+          role: 'admin' | 'company' | 'supervisor' | 'employee';
+          is_active?: boolean;
+          full_name?: string | null;
+          email: string;
+          phone?: string | null;
+          company_id?: string | null;
+          supervisor_id?: string | null;
+          last_login?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          role?: 'admin' | 'company' | 'supervisor' | 'employee';
+          is_active?: boolean;
+          full_name?: string | null;
+          email?: string;
+          phone?: string | null;
+          company_id?: string | null;
+          supervisor_id?: string | null;
+          last_login?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      locations: {
+        Row: {
+          id: string;
+          company_id: string;
+          name: string;
+          code: string;
+          description: string | null;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          company_id: string;
+          name: string;
+          code: string;
+          description?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          company_id?: string;
+          name?: string;
+          code?: string;
+          description?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
       cleaning_requests: {
         Row: {
-          id: string
-          client_id: string
-          service_type: "regular" | "deep" | "specialized"
-          property_size: number
-          preferred_date: string
-          preferred_time: string
-          special_instructions: string | null
-          status: "pending" | "approved" | "scheduled" | "rejected"
-          created_at: string
-        }
+          id: string;
+          location_id: string;
+          company_id: string;
+          requestor_id: string | null;
+          type: 'spill' | 'no_tissue' | 'no_towel' | 'general';
+          description: string | null;
+          status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+          priority: 'low' | 'normal' | 'high' | 'urgent';
+          created_at: string;
+          updated_at: string;
+        };
         Insert: {
-          id?: string
-          client_id: string
-          service_type: "regular" | "deep" | "specialized"
-          property_size: number
-          preferred_date: string
-          preferred_time: string
-          special_instructions?: string | null
-          status?: "pending" | "approved" | "scheduled" | "rejected"
-          created_at?: string
-        }
+          id?: string;
+          location_id: string;
+          company_id: string;
+          requestor_id?: string | null;
+          type: 'spill' | 'no_tissue' | 'no_towel' | 'general';
+          description?: string | null;
+          status?: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+          priority?: 'low' | 'normal' | 'high' | 'urgent';
+          created_at?: string;
+          updated_at?: string;
+        };
         Update: {
-          id?: string
-          client_id?: string
-          service_type?: "regular" | "deep" | "specialized"
-          property_size?: number
-          preferred_date?: string
-          preferred_time?: string
-          special_instructions?: string | null
-          status?: "pending" | "approved" | "scheduled" | "rejected"
-          created_at?: string
-        }
-      }
+          id?: string;
+          location_id?: string;
+          company_id?: string;
+          requestor_id?: string | null;
+          type?: 'spill' | 'no_tissue' | 'no_towel' | 'general';
+          description?: string | null;
+          status?: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+          priority?: 'low' | 'normal' | 'high' | 'urgent';
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
       cleaning_jobs: {
         Row: {
-          id: string
-          request_id: string
-          assigned_team_id: string
-          scheduled_date: string
-          start_time: string
-          end_time: string
-          status: "scheduled" | "in-progress" | "completed" | "cancelled"
-          priority: "low" | "medium" | "high"
-          notes: string | null
-          created_at: string
-        }
+          id: string;
+          request_id: string;
+          company_id: string;
+          location_id: string;
+          assigned_by: string;
+          assigned_to: string;
+          status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+          priority: 'low' | 'normal' | 'high' | 'urgent';
+          notes: string | null;
+          started_at: string | null;
+          completed_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
         Insert: {
-          id?: string
-          request_id: string
-          assigned_team_id: string
-          scheduled_date: string
-          start_time: string
-          end_time: string
-          status?: "scheduled" | "in-progress" | "completed" | "cancelled"
-          priority?: "low" | "medium" | "high"
-          notes?: string | null
-          created_at?: string
-        }
+          id?: string;
+          request_id: string;
+          company_id: string;
+          location_id: string;
+          assigned_by: string;
+          assigned_to: string;
+          status?: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+          priority?: 'low' | 'normal' | 'high' | 'urgent';
+          notes?: string | null;
+          started_at?: string | null;
+          completed_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
         Update: {
-          id?: string
-          request_id?: string
-          assigned_team_id?: string
-          scheduled_date?: string
-          start_time?: string
-          end_time?: string
-          status?: "scheduled" | "in-progress" | "completed" | "cancelled"
-          priority?: "low" | "medium" | "high"
-          notes?: string | null
-          created_at?: string
-        }
-      }
-      teams: {
+          id?: string;
+          request_id?: string;
+          company_id?: string;
+          location_id?: string;
+          assigned_by?: string;
+          assigned_to?: string;
+          status?: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+          priority?: 'low' | 'normal' | 'high' | 'urgent';
+          notes?: string | null;
+          started_at?: string | null;
+          completed_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      inventory: {
         Row: {
-          id: string
-          name: string
-          supervisor_id: string
-          created_at: string
-        }
+          id: string;
+          location_id: string;
+          item_name: string;
+          quantity: number;
+          low_stock_threshold: number;
+          last_restocked_by: string | null;
+          last_restocked_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
         Insert: {
-          id?: string
-          name: string
-          supervisor_id: string
-          created_at?: string
-        }
+          id?: string;
+          location_id: string;
+          item_name: string;
+          quantity?: number;
+          low_stock_threshold?: number;
+          last_restocked_by?: string | null;
+          last_restocked_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
         Update: {
-          id?: string
-          name?: string
-          supervisor_id?: string
-          created_at?: string
-        }
-      }
-      users: {
-        Row: {
-          id: string
-          email: string
-          role: "customer" | "employee" | "supervisor"
-          created_at: string
-        }
-        Insert: {
-          id?: string
-          email: string
-          role?: "customer" | "employee" | "supervisor"
-          created_at?: string
-        }
-        Update: {
-          id?: string
-          email?: string
-          role?: "customer" | "employee" | "supervisor"
-          created_at?: string
-        }
-      }
-    }
+          id?: string;
+          location_id?: string;
+          item_name?: string;
+          quantity?: number;
+          low_stock_threshold?: number;
+          last_restocked_by?: string | null;
+          last_restocked_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      get_user_role: {
+        Args: Record<PropertyKey, never>;
+        Returns: 'admin' | 'company' | 'supervisor' | 'employee';
+      };
+    };
     Enums: {
-      [_ in never]: never
-    }
-  }
+      user_role: 'admin' | 'company' | 'supervisor' | 'employee';
+      request_status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+      request_type: 'spill' | 'no_tissue' | 'no_towel' | 'general';
+      priority_level: 'low' | 'normal' | 'high' | 'urgent';
+    };
+  };
 }
