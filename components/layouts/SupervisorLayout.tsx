@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import {
   Building2,
@@ -9,27 +9,49 @@ import {
   Building,
   Package,
   User,
-} from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
+  LogOut,
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Button } from '@/components/ui/button';
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard/supervisor", icon: Home },
-  { name: "Cleaning Requests", href: "/dashboard/supervisor/cleaning-request", icon: Calendar },
-  { name: "Cleaning Jobs", href: "/dashboard/supervisor/cleaning-jobs", icon: Briefcase },
-  { name: "Companies", href: "/dashboard/supervisor/companies", icon: Building },
-  { name: "Employees", href: "/dashboard/supervisor/employees", icon: Users },
-  { name: "Inventory", href: "/dashboard/supervisor/inventory", icon: Package },
-  { name: "Profile", href: "/dashboard/supervisor/profile", icon: User },
-]
+  { name: 'Dashboard', href: '/dashboard/supervisor', icon: Home },
+  {
+    name: 'Cleaning Requests',
+    href: '/dashboard/supervisor/cleaning-request',
+    icon: Calendar,
+  },
+  {
+    name: 'Cleaning Jobs',
+    href: '/dashboard/supervisor/cleaning-jobs',
+    icon: Briefcase,
+  },
+  {
+    name: 'Companies',
+    href: '/dashboard/supervisor/companies',
+    icon: Building,
+  },
+  { name: 'Employees', href: '/dashboard/supervisor/employees', icon: Users },
+  { name: 'Inventory', href: '/dashboard/supervisor/inventory', icon: Package },
+  { name: 'Profile', href: '/dashboard/supervisor/profile', icon: User },
+];
 
 export default function SupervisorLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const router = useRouter();
+  const supabase = createClientComponentClient();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.push('/');
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -37,29 +59,45 @@ export default function SupervisorLayout({
         <div className="flex flex-grow flex-col overflow-y-auto">
           <div className="flex h-16 flex-shrink-0 items-center px-4">
             <Building2 className="h-8 w-8" />
-            <span className="ml-2 text-lg font-semibold">CleanConnect Pro</span>
+            <span className="ml-2 text-lg font-semibold">Mancorp Ltd</span>
+          </div>
+          <div className="flex h-16 flex-shrink-0 items-center px-4">
+            <User className="h-8 w-8" />
+            <span className="ml-2 text-lg font-semibold">Supervisor</span>
           </div>
           <div className="mt-5 flex flex-grow flex-col">
             <nav className="flex-1 space-y-1 px-2">
               {navigation.map((item) => {
-                const isActive = pathname === item.href
+                const isActive = pathname === item.href;
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      "group flex items-center rounded-md px-2 py-2 text-sm font-medium",
+                      'group flex items-center rounded-md px-2 py-2 text-sm font-medium',
                       isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        ? 'bg-primary text-primary-foreground'
+                        : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
                     )}
                   >
                     <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
                     {item.name}
                   </Link>
-                )
+                );
               })}
             </nav>
+          </div>
+          {/* Add Sign Out Button */}
+          {/*I NEED TO REVISIT THIS, SOMETHING IS BEING COVERED*/}
+          <div className="flex-shrink-0 border-t p-4">
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-base"
+              onClick={handleSignOut}
+            >
+              <LogOut className="mr-3 h-5 w-5" />
+              Sign out
+            </Button>
           </div>
         </div>
       </div>
@@ -73,5 +111,5 @@ export default function SupervisorLayout({
         </main>
       </div>
     </div>
-  )
+  );
 }
