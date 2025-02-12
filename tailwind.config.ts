@@ -60,6 +60,13 @@ const config: Config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        container: {
+          center: true,
+          padding: '2rem',
+          screens: {
+            '2xl': '1400px',
+          },
+        },
       },
       keyframes: {
         'accordion-down': {
