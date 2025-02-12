@@ -1,19 +1,24 @@
 import { createClient } from '@supabase/supabase-js';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import { Database } from '@/types/supabase';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+// Client-side Supabase instance
+export const createClientSupabase = () => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl) {
-  throw new Error(
-    'NEXT_PUBLIC_SUPABASE_URL is missing. Check your .env.local file in development or Vercel environment variables in production.'
-  );
-}
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error('Missing Supabase credentials');
+  }
 
-if (!supabaseAnonKey) {
-  throw new Error(
-    'NEXT_PUBLIC_SUPABASE_ANON_KEY is missing. Check your .env.local file in development or Vercel environment variables in production.'
-  );
-}
+  return createClient<Database>(supabaseUrl, supabaseAnonKey);
+};
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+// Server-side Supabase instance
+export const createServerSupabase = () => {
+  return createServerComponentClient<Database>({ cookies });
+};
+
+// Default export for backwards compatibility
+export const supabase = createClientSupabase();
